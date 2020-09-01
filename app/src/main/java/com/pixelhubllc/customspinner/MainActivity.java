@@ -15,7 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class MainActivity extends AppCompatActivity{
 
     SharedPreferences lastSelect;
     SharedPreferences.Editor editor;
@@ -37,27 +37,24 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Spinner spin = (Spinner) findViewById(R.id.simpleSpinner);
 
 
-        spin.setOnItemSelectedListener(this);
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                editor.putInt("lastClick", position).commit();
+                Log.e("lastClick", "lastSelect: " + position );
+                Toast.makeText(getApplicationContext(), String.valueOf(nums[position]), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         CustomAdapter customAdapter=new CustomAdapter(MainActivity.this,nums);
         spin.setAdapter(customAdapter);
         spin.setSelection(lastClick);
 
     }
-
-    //Performing action onItemSelected and onNothing selected
-    @Override
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int position,long id) {
-        editor.putInt("lastClick", position).commit();
-       Log.e("lastClick", "lastSelect: " + position );
-
-        Toast.makeText(getApplicationContext(), String.valueOf(nums[position]), Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> arg0) {
-        // TODO Auto-generated method stub
-    }
-
-
+    
 }
