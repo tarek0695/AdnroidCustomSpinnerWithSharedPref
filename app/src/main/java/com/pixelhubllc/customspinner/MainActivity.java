@@ -19,23 +19,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     SharedPreferences lastSelect;
     SharedPreferences.Editor editor;
+    int nums[] = {1,2,4,5};
 
-    String[] countryNames={"India","China","Australia","Portugle","America","New Zealand"};
-    //int flags[] = {R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background, R.drawable.ic_launcher_background};
-    int flags[] = {1,2,4,5};
 
-//    ArrayList<Integer> nums = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//
-//        nums.add(5);
-//        nums.add(10);
-//        nums.add(15);
-//        nums.add(25);
-//        nums.add(50);
 
         lastSelect = getSharedPreferences("lastSetting", Context.MODE_PRIVATE);
         editor = lastSelect.edit();
@@ -46,10 +37,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Spinner spin = (Spinner) findViewById(R.id.simpleSpinner);
 
 
-//        spin.setOnItemSelectedListener(this);
+        spin.setOnItemSelectedListener(this);
 
-       // CustomAdapter customAdapter=new CustomAdapter(getApplicationContext(),flags,countryNames);
-        CustomAdapter customAdapter=new CustomAdapter(MainActivity.this,flags);
+        CustomAdapter customAdapter=new CustomAdapter(MainActivity.this,nums);
         spin.setAdapter(customAdapter);
         spin.setSelection(lastClick);
 
@@ -61,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         editor.putInt("lastClick", position).commit();
        Log.e("lastClick", "lastSelect: " + position );
 
-        Toast.makeText(getApplicationContext(), String.valueOf(flags[position]), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), String.valueOf(nums[position]), Toast.LENGTH_LONG).show();
     }
 
     @Override

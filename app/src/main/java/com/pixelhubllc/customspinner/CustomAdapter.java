@@ -12,27 +12,20 @@ import java.util.ArrayList;
 
 class CustomAdapter extends BaseAdapter {
     Context context;
-    int flags[];
-    String[] countryNames;
+    int nums[];
     LayoutInflater inflter;
 
-//    public CustomAdapter(Context applicationContext, int[] flags, String[] countryNames) {
-//        this.context = applicationContext;
-//        this.flags = flags;
-//        this.countryNames = countryNames;
-//        inflter = (LayoutInflater.from(applicationContext));
-//    }
 
-    public CustomAdapter(Context applicationContext, int[] flags) {
+    public CustomAdapter(Context applicationContext, int[] nums) {
         this.context = applicationContext;
-        this.flags = flags;
+        this.nums = nums;
         inflter = (LayoutInflater.from(applicationContext));
     }
 
 
     @Override
     public int getCount() {
-        return flags.length;
+        return nums.length;
     }
 
     @Override
@@ -49,9 +42,7 @@ class CustomAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.custom_spinner_items, null);
        TextView icon = (TextView) view.findViewById(R.id.imageView);
-//        TextView names = (TextView) view.findViewById(R.id.textView);
-       icon.setText(String.valueOf(flags[i]));
-//        names.setText(flags[i]);
+       icon.setText(String.valueOf(nums[i]));
         return view;
     }
 }
